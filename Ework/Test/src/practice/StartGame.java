@@ -25,7 +25,7 @@ class BuLei {
 		}
 		return b; 
 	}
-	
+
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -33,8 +33,8 @@ class BuLei {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
-	
+
+
 	public int getX() {
 		return x;
 	}
@@ -49,7 +49,7 @@ class BuLei {
 		this.x = x;
 		this.y = y;
 	}
-//布雷方法 参数是想要埋雷的个数
+	//布雷方法 参数是想要埋雷的个数
 	public void buLei(int s) {
 		if (s < 0) {
 			System.out.println("传入参数有误1");
@@ -66,14 +66,12 @@ class BuLei {
 				//如果生成的随机数组下标的数组元素是雷 则让i减一，为了让雷的个数与s相等
 				i--;
 			}
-			
+
 		}
 		//调用填充数的方法
 		setNum(lei, x, y);
-//		toString(lei);
-//		System.out.println("_____________________________________");
-//		System.out.println("_____________________________________");
-//		toString(lei);
+		toString(lei);
+		System.out.println("_____________________________________");
 	}
 	//遍历数组的方法
 	public void toString(int[][] lei) {
@@ -93,37 +91,44 @@ class BuLei {
 		for (int i = 0; i < y; i++) {
 			for (int j = 0; j < x; j++) {
 				if (lei[i][j] == '*') {
-//					if (i < y - 1 && i >= 1 && j < x - 1 && j >= 1) {
-//						lei[i + 1][j] += 1;
-//						lei[i][j + 1] += 1;
-//						lei[i + 1][j + 1] += 1;
-//						lei[i - 1][j] += 1;
-//						lei[i][j - 1] += 1;
-//						lei[i - 1][j - 1] += 1;
-//						lei[i + 1][j - 1] += 1;
-//						lei[i - 1][j + 1] += 1;
-//					}
-					//
+					//					if (i < y - 1 && i >= 1 && j < x - 1 && j >= 1) {
+					//						lei[i + 1][j] += 1;
+					//						lei[i][j + 1] += 1;
+					//						lei[i + 1][j + 1] += 1;
+					//						lei[i - 1][j] += 1;
+					//						lei[i][j - 1] += 1;
+					//						lei[i - 1][j - 1] += 1;
+					//						lei[i + 1][j - 1] += 1;
+					//						lei[i - 1][j + 1] += 1;
+					//					}
+					//判断雷的下面是否越界
 					if (i + 1 < y && lei[i + 1][j] != '*')
 						lei[i + 1][j] += 1;
+					//雷的右面
 					if (j + 1 < x && lei[i][j + 1] != '*')
 						lei[i][j + 1] += 1;
+					//雷的右下
 					if (i + 1 < y && j + 1 < x && lei[i + 1][j + 1] != '*')
 						lei[i + 1][j + 1] += 1;
+					//雷的上边
 					if (i - 1 >= 0 && lei[i - 1][j] != '*')
 						lei[i - 1][j] += 1;
+					//雷的左边
 					if (j - 1 >= 0 && lei[i][j - 1] != '*')
 						lei[i][j - 1] += 1;
+					//雷的左上
 					if (i - 1 >= 0 && j - 1 >=0 && lei[i - 1][j - 1] != '*')
 						lei[i - 1][j - 1] += 1;
+					//雷的左下
 					if (i + 1 < x && j - 1 >=0 && lei[i + 1][j - 1] != '*')
 						lei[i + 1][j - 1] += 1;
+					//雷的右上
 					if (i - 1 >= 0 && j + 1 < y && lei[i - 1][j + 1] != '*')
 						lei[i - 1][j + 1] += 1;
 				}
 			} 
 		}
-		
+
 	}
 	//打印显示数组的方法
 	public void toString(String[][] sLei) {
@@ -148,25 +153,22 @@ class BuLei {
 		}
 
 		while (true) {
-		toString(sLei);
-		System.out.println("请输入对应下标，中间用空格隔开:");
-		//开始点雷
-		x1 = sc.nextInt();
-		y1 = sc.nextInt();
-		//如果点的坐标有雷 则游戏结束
-		if (lei[x1][y1] == '*') {
-			System.out.println("Game Over!");
-			break;
-		} else {
-			//如果没有雷，则把布雷数组对应的坐标赋值给显示数组
-			sLei[x1][y1] = "[ " + lei[x1][y1] + " ]";
+			toString(sLei);
+			System.out.println("请输入对应下标，中间用空格隔开:");
+			//开始点雷
+			x1 = sc.nextInt();
+			y1 = sc.nextInt();
+			//如果点的坐标有雷 则游戏结束
+			if (lei[x1][y1] == '*') {
+				System.out.println("Game Over!");
+				break;
+			} else {
+				//如果没有雷，则把布雷数组对应的坐标赋值给显示数组
+				sLei[x1][y1] = "[ " + lei[x1][y1] + " ]";
+			}
 		}
-		}
-		}	
+	}	
 }
-	
-
-
 
 public class StartGame {
 	public static void main(String[] args) {

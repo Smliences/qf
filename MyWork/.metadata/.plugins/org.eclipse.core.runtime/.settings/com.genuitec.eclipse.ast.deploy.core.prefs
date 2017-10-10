@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+myeclipseTomcatServer.myblog.IEARProjectName=
+myeclipseTomcatServer.myblog.altContextRoot=
+myeclipseTomcatServer.myblog.contextRoot=/myblog
+myeclipseTomcatServer.myblog.deployIsOverProject=false
+myeclipseTomcatServer.myblog.deploymentPath=D\:\\git\\qf\\MyWork\\.metadata\\.me_tcat\\webapps\\myblog
+myeclipseTomcatServer.myblog.isDeployed=true
+myeclipseTomcatServer.myblog.isExploded=true
+myeclipseTomcatServer.myblog.isUptoDate=true
+myeclipseTomcatServer.myblog.noFileCopy=false
+myeclipseTomcatServer.myblog.shouldBackup=false
+myeclipseTomcatServer.myblog.shouldOverwrite=false
+myeclipseTomcatServer.myblog.type=WebDeployment
