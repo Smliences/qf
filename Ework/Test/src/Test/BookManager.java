@@ -7,8 +7,7 @@ import java.util.Scanner;
  */
 class Book {
 	//成员变量
-	private String name;
-	private String author;
+	private String name;	private String author;
 	private int price;
 	private String synopsis;
 	private int store;
