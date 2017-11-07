@@ -1,2 +1,5 @@
-/.metadata/
-/.recommenders/
+#ignore .metadata
+.metadata
+.gitignore
+#ignore obj and lib file
+*.[oa]
