@@ -1,0 +1,72 @@
+歌词解析的思路：
+	1. 读取整个歌词文件到内存中
+		String readLine();
+		ArrayList<String> list = new ArrayList<String>();
+		
+		while((str = br.readLine()) != null) {
+			list.add(str);
+		}
+	2. 分析歌词
+		HashMap<String, String> 
+		ti=平凡之路
+		ar=朴树
+		al=后会无期主题曲
+		by=null
+		
+		
+		//歌曲信息  [ti:  [ar:  [al: [by: 
+		String subString(str.indexOf(":") + 1, str.length);
+		[ti:平凡之路] 
+		[ar:朴树]
+		[al:后会无期主题歌]
+		[by:]
+		
+		
+		//310
+		[00:00.31]后会无期主题歌
+		//2410
+		[00:02.41]朴树 - 平凡之路
+		[00:03.76]作词：韩寒 朴树 
+		[00:05.67]作曲：朴树 编曲：朴树
+		[00:07.16]歌词分享QQ122121036
+		[00:10.66]
+		[00:12.12]徘徊着的  在路上的 
+		//75150
+		[01:15.15]23333333
+		
+		[00:00.31]后会无期主题歌
+		使用split方法 ] 分隔  
+		String[] arr[0] = "[00:00.31"
+				arr[1] = "后会无期主题曲" //歌词
+		获取歌词对应的时间:
+		"[00:00.31" 
+		分: 
+			String min = arr[0].subString(arr[0].indexOf('[') + 1, arr[0].indexOf(':')); // 00
+			int minInt = Integer.parseInt(min); //解析String字符串变成int数据
+		
+			String sec = arr[0].subString(arr[0].indexOf(':') + 1, arr[0].indexOf('.')); //00
+			int secInt = Integer.parseInt(sec);
+			
+			String pointSec = arr[0].subString(arr[0].indexOf('.') + 1);
+			int pointSecInt = Integer.parseInt(pointSec);
+			
+			int time = minInt * 60 * 1000 + secInt * 1000 + pointSecInt * 10
+			         = (minInt * 60 + secInt) * 1000 + pointSecInt * 10;
+					 
+			String timeValue = String.valueOf(time);
+			
+			map.put(timeValue, arr[1]);
+		
+		
+	3. 展示：
+		设置一个程序的开始时间
+		long star = System.currentTimeMillis();
+		
+		sleep(1); //程序停止1ms
+		
+		获取当前时间，减去开始时间，得到运行时间 
+		用这个时间从HashMap中获取要展示的歌词
+		
+		
+		
+		
