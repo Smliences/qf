@@ -1,0 +1,13 @@
+package test;
+
+import sun.net.httpserver.DefaultHttpServerProvider;
+
+public class Get {
+	public static void main(String[] args) {
+		
+	}
+	public static String do_get(String url) {
+		String body = "{}";
+		DefaultHttpClient
+	}
+}

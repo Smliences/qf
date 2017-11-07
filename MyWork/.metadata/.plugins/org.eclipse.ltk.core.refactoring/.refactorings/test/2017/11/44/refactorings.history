@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;content&apos; from expression &apos;entity1.getContent()&apos;&#x0D;&#x0A;- Original project: &apos;test&apos;&#x0D;&#x0A;- Variable name: &apos;content&apos;&#x0D;&#x0A;- Destination method: &apos;test.Get.do_get()&apos;&#x0D;&#x0A;- Variable expression: &apos;entity1.getContent()&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;content&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;test{Get.java" name="content" replace="true" selection="988 0" stamp="1509625500675" version="1.0"/>
+</session>
