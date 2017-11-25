@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<item value="2" key="TypeHierarchyViewPart.hierarchyview"/>
-	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
 	<item value="3" key="TypeHierarchyViewPart.orientation"/>
+	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
 	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
 	</section>
 	<section name="NewWebXmlLinkCreationWizardPage">
 		<item value="This is the display name of my J2EE component" key="display_name"/>
-		<item value="This is the description of my J2EE component" key="description"/>
 		<item value="/Day35_test/WebRoot/WEB-INF" key="filePath"/>
+		<item value="This is the description of my J2EE component" key="description"/>
 		<item value="true" key="do_mapping"/>
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.wizards.buildpaths.NewVariableEntryDialog">
 		<item value="577" key="DIALOG_WIDTH"/>
 		<item value="-12" key="DIALOG_Y_ORIGIN"/>
-		<item value="86" key="DIALOG_X_ORIGIN"/>
 		<item value="438" key="DIALOG_HEIGHT"/>
+		<item value="86" key="DIALOG_X_ORIGIN"/>
 		<item value="1|微软雅黑|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|微软雅黑" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="BuildPathsPropertyPage">
@@ -44,8 +44,8 @@
 		<section name="DialogBoundsSettings">
 			<item value="600" key="DIALOG_WIDTH"/>
 			<item value="88" key="DIALOG_Y_ORIGIN"/>
-			<item value="500" key="DIALOG_HEIGHT"/>
 			<item value="787" key="DIALOG_X_ORIGIN"/>
+			<item value="500" key="DIALOG_HEIGHT"/>
 			<item value="1|微软雅黑|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|微软雅黑" key="DIALOG_FONT_NAME"/>
 		</section>
 	</section>
@@ -60,13 +60,13 @@
 	</section>
 	<section name="NewServletCreationWizardPage">
 		<item value="1] Default template for Servlet" key="template"/>
-		<item value="false" key="create_dodelete"/>
 		<item value="true" key="create_constructor"/>
-		<item value="false" key="create_servletinfo"/>
+		<item value="false" key="create_dodelete"/>
 		<item value="true" key="create_doget"/>
+		<item value="false" key="create_servletinfo"/>
 		<item value="true" key="create_doinitdestroy"/>
-		<item value="true" key="create_main"/>
 		<item value="true" key="create_unimplemented"/>
+		<item value="true" key="create_main"/>
 		<item value="true" key="create_dopost"/>
 		<item value="false" key="create_doput"/>
 	</section>

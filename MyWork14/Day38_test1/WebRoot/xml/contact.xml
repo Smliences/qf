@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<contacts>
+	<contact id="1">
+		<name>zhangsnaasdfasd</name>
+		<age>12</age>
+		<email>adf</email>
+		<phone>12</phone>
+		<gender>nan</gender>
+		<qq>213</qq>
+	</contact>
+</contacts>

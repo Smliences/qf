@@ -3,3 +3,4 @@
 .gitignore
 #ignore obj and lib file
 *.[oa]
+/.recommenders/

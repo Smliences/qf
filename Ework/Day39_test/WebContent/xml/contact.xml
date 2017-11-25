@@ -1,0 +1,10 @@
+<contacts>
+	<contact id = "3">
+		<name>zhangsan</name>
+		<gendre>nana</gendre>
+		<age>123</age>
+		<email>awlef</email>
+		<qq>werw</qq>
+		<phone>adsfa</phone>
+	</contact>
+</contacts>
