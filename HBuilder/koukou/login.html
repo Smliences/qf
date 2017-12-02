@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	</head>
+
+	<body>
+		<table border="0" cellspacing="0" align="center">
+			<tr>
+				<td>账号：</td>
+				<td><input type="text" name="username" /></td>
+			</tr>
+			<tr>
+				<td>密码：</td>
+				<td><input class="password1" type="password" name="password1" /></td>
+			</tr>
+			<tr>
+				<td>确认密码：</td>
+				<td><input class="password2" name="password2" /><span id="span1"></span></td>
+			</tr>
+			<tr>
+				<td>验证码：</td>
+				<td><img class="img"src="img/b.jpg" /></td>
+			</tr>
+		</table>
+		<script type="text/javascript">
+				$(".password2").change(function() {
+					alert($(".password2").val())
+					if($(".password1").val() != $(".password2").val()) {
+						$("#span1").html("密码不一致");
+					} else {
+						$("#span1").html("密码一致")
+					}
+				})
+				var time = new Date;
+				$(".img").click(function() {
+					alert(time)
+				})
+		</script>
+	</body>
+
+</html>

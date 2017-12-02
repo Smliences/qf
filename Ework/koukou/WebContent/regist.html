@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	</head>
+
+	<body>
+		<table border="0" cellspacing="0" align="center">
+			<tr>
+				<td>账号：</td>
+				<td><input class="username" type="text" name="username" /><span id="span2"></span></td>
+			</tr>
+			<tr>
+				<td>密码：</td>
+				<td><input class="password1" type="password" name="password1" /></td>
+			</tr>
+			<tr>
+				<td>确认密码：</td>
+				<td><input class="password2" name="password2" /><span id="span1"></span></td>
+			</tr>
+			<tr>
+				<td>验证码：</td>
+				<td><input class="code" type="text" name="code"/><img class="img" src="code/b.jpg" /></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="注册"/></td>
+				<!-- <input class="hidden" type="hidden"/> -->
+			</tr>
+			
+		</table>
+		<script type="text/javascript">
+				$(".password2").change(function() {
+					if($(".password1").val() != $(".password2").val()) {
+						$("#span1").html("密码不一致");
+					} else {
+						$("#span1").html("密码一致")
+					}
+				})
+				
+				$(".username").blur(function() {
+					var username = $(".username").val();
+					$.ajax({
+						url:'UserServlet?method=checkName&username=' + username,
+						type:'get',
+						async:true,
+						xhrFields: {
+					            withCredentials: true
+					        },
+					    success: function(data) {
+					    	/* alter(data )*/
+					    	  $("#span2").html(data) 
+					    }
+					})
+				})
+				$(".img").click();
+ 			/* 	$(".img").click(function() {
+ 					alert(1)
+					$.ajax({
+						url:'CodeServlet',
+						type:'get',
+						async:true,
+						success: function(data) {
+							<!--$(".hidden").val(data)-->
+							alert(1)
+						}
+					})
+				})  */
+				$(function() {
+					
+			 	 $(".img").click(function() {
+			 		 var time = new Date();
+					  $.ajax({
+						url:'CodeServlet?time=' + time,
+						type:'get',
+						async:true,
+						success: function(data) {
+							var name = data.split("-")[0];
+							var code = data.split("-")[1];
+							$(".img").attr('src','code/' + name + '.jpg')
+							$(".hidden").val(code)
+						}
+					})  
+				})  
+				
+				})
+				
+		</script>
+	</body>
+
+</html>

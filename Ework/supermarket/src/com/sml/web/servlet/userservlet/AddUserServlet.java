@@ -30,20 +30,21 @@ public class AddUserServlet extends HttpServlet {
 			user.setAge(Integer.valueOf(request.getParameter("age")));
 			user.setAddress(request.getParameter("address"));
 			user.setPassword(request.getParameter("password"));
+			
 			if (request.getParameter("sex").equals("0")) {
-				user.setSex("女");
-			} else {
 				user.setSex("男");
+			} else {
+				user.setSex("女");
 			}
 			if (request.getParameter("job").equals("0")) {
 				user.setJob("普通用户");
 			} else {
 				user.setJob("经理");
 			}
-			user.setSex(request.getParameter("sex"));
+			
 			user.setPhone(request.getParameter("phone"));
+			dao.insert(user);
 		}
-		dao.insert(user);
 		request.getRequestDispatcher("UserListServlet").forward(request, response);
 	}
 

@@ -1,0 +1,14 @@
+package com.sml.web.dao;
+
+import java.util.List;
+
+import com.sml.web.baseinterface.BaseDao;
+import com.sml.web.pojo.PageBean;
+import com.sml.web.pojo.User;
+
+public interface UserDao extends BaseDao<User>{
+	public String queryByUsername(String username);
+	public List<User> queryUserList();
+	public int queryUserCount();
+	public List<User> queryPageBeanlist(PageBean pageBean);
+}

@@ -61,8 +61,10 @@ function doit(flag,id)
     <td><span class="STYLE1">${user.phone }</span></td>
     <td><span class="STYLE1">${user.address }</span></td>
     <td><span class="STYLE1">${user.job }</span></td>
-
   </tr>
+  </c:forEach>
+  <c:forEach begin="1" end="${pageBean.totalNum }" var="num">
+ 	 <a href="UserListServlet?page=${num }">${num }</a>
   </c:forEach>
 </tbody></table>
 </div>

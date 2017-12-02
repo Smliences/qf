@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.sml.web.dao.UserDao;
+import com.sml.web.pojo.PageBean;
 import com.sml.web.pojo.User;
 import com.xml.web.untills.JdbcUtils;
 
@@ -17,7 +18,7 @@ public class UserDaoImp implements UserDao {
 		
 		ArrayList<Object> arrs = new ArrayList<Object>();
 		arrs.add(e.getUsername());
-		arrs.add(e.getPassword());
+		arrs.add(e.getPassword()); 
 		arrs.add(e.getSex());
 		arrs.add(e.getAge());
 		arrs.add(e.getPhone());
@@ -76,4 +77,37 @@ public class UserDaoImp implements UserDao {
 			return userList;
 		return null;
 	}
+
+	@Override
+	public List<User> queryPageBeanlist(PageBean pageBean) {
+		String sql = "select * from user limit " 
+				+ pageBean.getStartCount() + "," + pageBean.getPageCount();
+		ArrayList<User> userList = new ArrayList<User>();
+		List<HashMap<String, Object>> list = jdbc.select(sql, null);
+
+		for (HashMap<String, Object> hashMap : list) {
+			User user = new User();
+			user.setUsername((String)hashMap.get("username"));
+			user.setAddress((String)hashMap.get("address"));
+			user.setAge((int)hashMap.get("age"));
+			user.setJob((String)hashMap.get("job"));
+			user.setPhone((String)hashMap.get("phone"));
+			user.setUid((int)hashMap.get("uid"));
+			user.setSex((String)hashMap.get("sex"));
+			userList.add(user);
+		}
+		
+		if (userList != null && userList.size() > 0)
+			return userList;
+		return null;
+	}
+
+	@Override
+	public int queryUserCount() {
+		List<HashMap<String, Object>> list = jdbc.select("select count(*) count from User", null);
+		Number num = (Number)list.get(0).get("count");
+		return  num.intValue();
+	}
+	
+	
 }

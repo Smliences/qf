@@ -13,8 +13,11 @@ public class Demo1 {
 	public void query() throws SQLException {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-
-			String url = "jdbc:mysql:///jdbc?user=root&password=123";
+			 String url = "jdbc:mysql://rm-uf6k27w966m2ef83go.mysql.rds.aliyuncs.com:3306/test?zeroDateTimeBehavior=convertToNull"
+	                 + "&user=root&amp;password=Qq71616997290123&amp;useUnicode=true&amp;characterEncoding=UTF8;";
+//			String url = "jdbc:mysql:///jdbc?user=root&password=123";
+//			String url = "jdbc:mysql://rm-uf6k27w966m2ef83go.mysql.rds.aliyuncs.com:3306/test?"
+//					+ "user=root&password=Qq71616997290123&autoReconnect=true&failOverReadOnly=false";
 			Connection conn = DriverManager.getConnection(url);
 			Statement sta = conn.createStatement();
 
@@ -23,7 +26,6 @@ public class Demo1 {
 
 			while (rs.next()) {
 				System.out.println(rs.getString("name"));
-				System.out.println(rs.getString("id"));
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
