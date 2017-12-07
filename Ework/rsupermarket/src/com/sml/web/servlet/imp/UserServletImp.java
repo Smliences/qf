@@ -16,7 +16,7 @@ import com.sml.web.dao.imp.UserDaoImp;
 import com.sml.web.pojo.PageBean;
 import com.sml.web.pojo.User;
 import com.sml.web.servlet.UserServlet;
-//git
+
 /**
  * Servlet implementation class UserServletImp
  */
