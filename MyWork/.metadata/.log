@@ -6208,3 +6208,21 @@ java.lang.NullPointerException
 
 !ENTRY org.eclipse.core.jobs 2 2 2017-11-24 16:53:31.104
 !MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: com.genuitec.eclipse.struts2.model.Struts2Project$StrutsModelJob
+!SESSION 2017-12-05 16:52:25.131 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_13
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2017-12-05 16:52:45.346
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.genuitec.eclipse.core 1 0 2017-12-05 16:52:52.940
+!MESSAGE Activation Error: Cannot decode server response, likely due to only partial entry: Message is larger than modulus
+
+!ENTRY com.genuitec.eclipse.core 1 0 2017-12-05 16:52:52.948
+!MESSAGE Error: invalid activation-data in license file; activation is invalidated
+
+!ENTRY net.sourceforge.vrapper.eclipse 1 0 2017-12-05 16:53:52.785
+!MESSAGE No .vrapperrc or _vrapperrc found.

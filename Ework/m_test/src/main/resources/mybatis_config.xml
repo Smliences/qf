@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 用于声明当前xml文件可用标签，有了这个路径之后，我们就可以在当前xml中拥有了代码提示，并且对xml标签有了规定，必须使用规定的一些标签 -->
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 用于配置mybatis的配置文件 -->
+<configuration>
+	<properties resource="jdbc.properties"></properties>
+	
+	<settings>
+	<setting name="logImpl" value="STDOUT_LOGGING"/>
+	</settings>
+	<typeAliases>
+		<package name="com.sml.pojo"/>
+	</typeAliases>
+
+	<environments default="test">
+		<environment id="test">
+			<transactionManager type="JDBC"></transactionManager>
+
+			<dataSource type="POOLED">
+				<property name="username" value="${jdbc_username}"/>
+				<property name="password" value="${jdbc_password}"/>
+				<property name="url" value="${jdbc_url}"/>
+				<property name="driver" value="${jdbc_driver}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="com/sml/pojo/UserMapper.xml"/>
+		<mapper class="com.sml.dao.UserDao"/>
+	</mappers>
+</configuration>

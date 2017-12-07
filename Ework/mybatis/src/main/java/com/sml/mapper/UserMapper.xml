@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sml.mapper.UserMapper">
+	<resultMap type="user" id="usergroup">
+		<id column="id" property="id"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<collection property="groupList" ofType="list">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="size" property="size"/>
+		</collection>
+	</resultMap>
+	<insert id="insertUser" parameterType="user">
+		insert into user
+		values(null,#{username},#{password})
+	</insert>
+
+	<update id="updateUser" parameterType="user">
+		update user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="username!=''">
+				username = #{username},
+			</if>
+			<if test="password!=''">
+				password = #{password},
+			</if>
+		</trim>
+		<trim prefix="where">
+			id = #{id}
+		</trim>
+	</update>
+
+	<select id="selectUserByUsername" parameterType="String"
+		resultType="user">
+		select * from user
+		<trim prefix="where" prefixOverrides="and">
+			<if test="_parameter!=''">
+				and username like #{_parameter}
+			</if>
+		</trim>
+	</select>
+
+	<select id="selectUserGroupByName" parameterType="String"
+		resultMap="usergroup">
+		SELECT * FROM
+		USER u INNER JOIN usergroup ug INNER JOIN `group` g
+		<trim prefix="where" prefixOverrides="and">
+			u.id = ug.uid AND g.id = ug.gid
+			<if test="_parameter!=null">
+				AND u.username LIKE #{_parameter}
+			</if>
+		</trim>
+	</select>
+</mapper>
