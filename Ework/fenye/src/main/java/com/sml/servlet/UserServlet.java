@@ -48,12 +48,15 @@ public class UserServlet extends HttpServlet {
 		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(in);
 		SqlSession session = sessionFactory.openSession();
 		UserMapper userMapper = session.getMapper(UserMapper.class);
+
 		PageHelper.startPage(pageNum, pageSize);
 		List<User> userList = userMapper.selectAll();
 		PageInfo<User> pageInfo = new PageInfo<User>(userList);
+
 		System.out.println(userList);
 		System.out.println(pageInfo);
 		System.out.println(pageInfo.getList());
+
 		request.setAttribute("page", pageInfo);
 		request.getRequestDispatcher("list.jsp").forward(request, response);
 	}
