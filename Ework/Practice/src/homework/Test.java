@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 public class Test {
 	public static void main(String[] args) throws IOException {
-		pigeonhole("D:/test");
+		pigeonhole("C:\\Users\\Administrator\\Desktop\\test");
 	}
 	public static void pigeonhole(String pathName) throws IOException {
 		if (null == pathName) {

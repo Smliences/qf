@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<!-- 配置session工厂，工厂用于创建session -->
+	<!-- session-facorty可以去一个名字，如果指定name必须有值 -->
+	<session-factory>
+		<!-- property用于配置，name是固定的名字 -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql:///ssm</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">123</property>
+		<!-- 会自动根据实体类创表表结构，此配置非必选，以上四个配置必选 update在平常练习或者工作简单的表适用，复杂的建议自己创建表 <property 
+			name="hibernate.hbm2ddl.auto">update</property> hibernate执行sql操作的时候把执行的sql语句输出到控制台 
+			打印sql语句 -->
+			 <property 
+			name="hibernate.hbm2ddl.auto">update</property>
+		<property name="show_sql">true</property>
+		<!-- 设置方言 打印格式换自动化航的sql语句 -->
+		<property name="hibernate.format_sql">true</property>
+		<mapping resource="com/sml/onetoone/user.hbm.xml"/>
+		<mapping resource="com/sml/onetoone/addresses.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>

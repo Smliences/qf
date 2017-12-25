@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.sml.pojo.Vote" table="vote">
+		<id name="v_id" column="v_id">
+			<generator class="native"></generator>
+		</id>
+
+		<version name="version" column="version">
+		</version>
+		
+		<property name="title" column="title"></property>
+		
+	</class>
+</hibernate-mapping>

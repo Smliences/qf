@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+
+
+	<!--dataSource的类有多个可选值，目前使用原生jdbc -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql:///1921_hibernate" />
+		<property name="username" value="root" />
+		<property name="password" value="123" />
+
+	</bean>
+
+
+
+	<!-- 之前是在代码中主动的初始化，现在交给spring进行初始化 ，bean默认是单例的 -->
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mappingDirectoryLocations">
+			<list>
+				<!-- xml文件所在路径 -->
+				<value>classpath:com/sml/pojo</value>
+
+			</list>
+		</property>
+		<property name="hibernateProperties">
+
+			<props>
+
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- 使用getCurrentSession的话创建的session会和当前线程绑定，同一线程中其他地方再次使用session就直接使用已经创建的 -->
+				<prop key="Hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+
+
+	</bean>
+
+
+	<bean id="userDao" class="com.sml.dao.UserDao">
+
+		<!-- 之前UserDaoImpl实现类中需要使用到的sessionFactory <property name="sf" ref="sessionFactory"></property> -->
+
+		<property name="ht" ref="ht"></property>
+	</bean>
+
+
+	<bean id="userService" class="com.sml.service.UserService">
+
+		<property name="userDao" ref="userDao"></property>
+
+	</bean>
+
+
+	<!-- HibernateTemplate的bean对象,封装了sessionFaoctry -->
+	<bean id="ht" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<!-- 配置事务管理器 指定其作用的sessionFactory把事务交给Spring去处理 ,之后spring会自动的通过hibernatetemplate对象中的功能帮助我们开启和提交事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+
+
+	<!-- 配置事务的传播特性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+<!-- 			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="select*" read-only="true" propagation="NOT_SUPPORTED" /> -->
+			<tx:method name="*" read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 那些类的哪些方法参与事务 -->
+	<!-- 切入点应该放在service层，因为一个servie中可能会调用多个dao，如果事务的提交放在dao层，会出现一个service对应多个dao的情况，我们想要的效果是所有dao执行完毕一并提交，放在dao就每个dao执行都会提交 -->
+	<aop:config>
+		<aop:pointcut id="allServiceMethod"
+			expression="execution(* com.sml.service.impl.*(..))" />
+		<aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice" />
+	</aop:config>
+
+</beans>
+

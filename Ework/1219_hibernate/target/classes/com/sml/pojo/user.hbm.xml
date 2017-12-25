@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<!-- name表示类的包名加类名，table表示表名 -->
+	<class table="user" name="com.sml.pojo.User">
+
+		<!-- oid和主键的映射 -->
+		<id column="id" name="id">
+			<!--表名主键id自动生成的方式 -->
+			<!-- native表示按照数据库指定的方式 -->
+			<generator class="native"></generator>
+		</id>
+		<property name="username" column="username"></property>
+		<property name="password" column="password"></property>
+		<!-- 普通字段和属性的映射 -->
+		
+	</class>
+</hibernate-mapping>

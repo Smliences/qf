@@ -21,7 +21,7 @@ public class UserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String method = request.getParameter("method");
-
+		
 		switch (method) {
 		case "regist":
 			regist(response, request);

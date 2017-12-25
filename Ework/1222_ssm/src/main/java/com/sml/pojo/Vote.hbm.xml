@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2017-12-22 20:09:00 by Hibernate Tools 5.2.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="ssm" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.sml.pojo.Vote" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="vote">
+        <id name="VId" type="java.lang.Integer">
+            <column name="v_id"/>
+            <generator class="identity"/>
+        </id>
+        <version generated="never" name="version" type="java.lang.Long" unsaved-value="undefined">
+            <column name="version"/>
+        </version>
+        <property generated="never" lazy="false" name="title" optimistic-lock="true" type="string" unique="false">
+            <column length="25" name="title"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="options" optimistic-lock="true" sort="unsorted" table="option">
+            <key on-delete="noaction">
+                <column name="v_id"/>
+            </key>
+            <one-to-many class="com.sml.pojo.Option" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

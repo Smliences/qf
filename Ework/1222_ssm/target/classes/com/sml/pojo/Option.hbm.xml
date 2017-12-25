@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2017-12-22 20:09:00 by Hibernate Tools 5.2.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="ssm" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.sml.pojo.Option" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="option">
+        <id name="OId" type="java.lang.Integer">
+            <column name="o_id"/>
+            <generator class="identity"/>
+        </id>
+        <version generated="never" name="version" type="java.lang.Long" unsaved-value="undefined">
+            <column name="version"/>
+        </version>
+        <many-to-one class="com.sml.pojo.Vote" embed-xml="true" fetch="select" insert="true" name="vote" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="v_id"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="content" optimistic-lock="true" type="string" unique="false">
+            <column length="25" name="content"/>
+        </property>
+        <property generated="never" lazy="false" name="count" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="count"/>
+        </property>
+        <property generated="never" lazy="false" name="img" optimistic-lock="true" type="binary" unique="false">
+            <column name="img"/>
+        </property>
+    </class>
+</hibernate-mapping>
