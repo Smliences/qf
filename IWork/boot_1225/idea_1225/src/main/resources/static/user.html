@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/icon.css"/>
+    <link rel="stylesheet" href="css/easyui.css"/>
+    <script src="js/jquery.js"></script>
+    <script src="js/easyui.js"></script>
+    <script>
+        function init() {
+            $("#first").datagrid({
+                title:"用户管理",//标题
+                url:"findAllUser",//供应数据的服务接口
+                method:"get",
+                //指定表格的列;field:指定填充数据的key
+                columns:[[
+                    {field:"id",title:"xuhao ",checkbox:true},
+                    {field:"account",title:"账号",width:100},
+                    {field:"pwd",title:"密码",width:100}
+                ]],
+                toolbar:[
+                    {text:"添加",iconCls:"icon-add",handler:function () {
+                            toAddUser();
+                        }},
+                    {text:"修改",iconCls:"icon-edit",handler:function(){
+                        toEditUser();
+                        }},
+                    {text:"删除",iconCls:"icon-remove",handler:function () {
+                            deleteUser();
+                        }}
+                ]
+            });
+        }
+        function toAddUser() {
+            $("#form_user_add").form("clear");
+            $("#form_user_add").form("load",{
+                id:0
+            });
+            $("#window_user_add").window("open");
+
+        }
+
+        function saveUser() {
+            $("#form_user_add").form("submit",{
+                success:function (d) {
+                    $("#first").datagrid("reload");
+                    $("#window_user_add").window("close");    }
+            })
+        }
+        //调用init()
+        $(init);
+        function deleteUser2() {
+            var data = $("#first").datagrid("getSelected");
+            $.get("deleteUser",{uid:data.id},function (d) {
+                $("#first").datagrid("reload");
+                alert(d)
+            })
+        }
+
+        function deleteUser() {
+            var data = $("#first").datagrid("getSelections");
+            var s1 = [];
+            for (var i = 0; i < data.length; i++) {
+                s1[i] = data[i].id;
+            }
+            var x = JSON.stringify(s1);
+
+            $.ajax({
+                url:"deleteUser2",
+                method:"post",
+                data:x,
+                contentType:"application/json",
+                success:function(d) {
+                    $("#first").datagrid("reload");
+                }
+            });
+        }
+
+        function toEditUser() {
+            var user = $("#first").datagrid("getSelected");
+            if (user) {
+                $("#form_user_add").form("load",{
+                    id:user.id,
+                    account:user.account,
+                    pwd:user.pwd
+                });
+                $("#window_user_add").window("open");
+            } else {
+                $.messager.alert("系统提示 ","请选择要修改的用户");
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>第一个例子</h1>
+<div id="first"></div>
+<div id="window_user_add" class="easyui-window" data-options="title:'添加用户',modal:true,closed:true"
+     style="display:flex;justify-content:center;flex-flow:column;width:300px;height:400px" >
+<form id="form_user_add" action="saveUser">
+    <input type="hidden" name="id">
+    <div style="margin-bottom: 20px;">
+        账号:<input type="text" name="account"/>
+    </div>
+    <div>
+        密码:<input type="password" name="pwd"/>
+    </div>
+</form>
+<div>
+    <button onclick="saveUser()">添加</button>
+</div>
+</div>
+</body>
+</html>
