@@ -1,0 +1,100 @@
+<div id="res"></div>
+<div id="window_res_add" class="easyui-window" data-options="title:'添加资源',modal:true,closed:true" style="display:flex;justify-content:center;flex-flow:column;width:300px;height:400px" >
+    <form id="form_res_add" action="saveRes">
+        <input type="hidden" name="id"/>
+        <div style="margin-bottom: 20px">
+            名称:
+            <input type="text" name="text" class="easyui-textbox"/>
+        </div>
+        <div style="margin-bottom: 20px">
+            地址:<input type="text" name="url" class="easyui-textbox"/>
+        </div>
+        <div style="margin-bottom: 20px">
+            父节点:<input name="parentid" class="easyui-combobox" data-options="url:'findResText',method:'get',valueField:'id',textField:'text'"/>
+        </div>
+    </form>
+    <div>
+        <button onclick="saveRes()" style="width:80%;height:50px" class="easyui-linkbutton">保存</button>
+    </div>
+</div>
+
+<script>
+    function resInit() {
+        $("#res").datagrid({
+            url:"findAllRes",//供应数据的服务接口
+            method:"get",
+            //指定表格的列;field:指定填充数据的key
+            columns:[[
+                {field:"id",title:"序号",checkbox:true},
+                {field:"text",title:"名称",width:100},
+                {field:"url",title:"地址",width:100}
+            ]],
+            toolbar:[
+                {text:"添加",iconCls:"icon-add",handler:function(){toAddRes();}},
+                {text:"修改",iconCls:"icon-edit",handler:function () {
+                        toEditRes();
+                    }},
+                {text:"删除",iconCls:"icon-remove",handler:function(){deleteRes();}}
+            ]
+
+
+        });
+    }
+    resInit();
+    function deleteRes() {
+        //获取多条选择的数据
+        var data=  $("#res").datagrid("getSelections");
+        //创建一个数组
+        var s1=[];
+        for(var i=0;i<data.length;i++){
+            s1[i]=data[i].id;
+        }
+        //转换为json字符串
+        var x=JSON.stringify(s1);
+
+        //发送json数据的异步函数
+        $.ajax({
+            url:"deleteRes",
+            method:"post",
+            data:x,
+            contentType:"application/json",//指定参数为json格式
+            success:function(d){
+                $("#res").datagrid("reload");
+            }
+
+        });
+    }
+    function toAddRes() {
+        //清除数据
+        $("#form_res_add").form("clear");
+        $("#form_res_add").form("load",{
+            id:0
+        });
+        //打开窗口
+        $("#window_res_add").window("open");
+    }
+    function saveRes() {
+        //提交数据到saveUser
+        $("#form_res_add").form("submit",{
+            success:function(d){
+                $("#res").datagrid("reload");
+                $("#window_res_add").window("close");
+            }
+        });
+    }
+    //    修改
+    function toEditRes() {
+        var user= $("#res").datagrid("getSelected");
+        if(user){
+            //填充数据到input
+            $("#form_res_add").form("load",{
+                id:user.id,
+                text:user.text,
+                url:user.url
+            });
+            $("#window_res_add").window("open");
+        }else{
+            $.messager.alert("系统提示","请选择要修改的用户");
+        }
+    }
+</script>

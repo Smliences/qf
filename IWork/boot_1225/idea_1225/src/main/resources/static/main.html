@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="css/icon.css"/>
+    <link rel="stylesheet" href="css/easyui.css"/>
+    <script src="js/jquery.js"></script>
+    <script src="js/easyui.js"></script>
+    <script>
+        function init() {
+            $("#main_left_menu").tree({
+                onClick:function (node) {
+                    $("#main_work").tabs("add",{
+                        title:node.text,
+                        closable:true,
+                        href:node.url
+                    });
+                }
+            });
+        }
+        $(init);
+    </script>
+</head>
+<body>
+<div class="easyui-layout" style="width:100%; height: 700px;">
+    <div data-options="region:'north'" style="width: 20%; height: 100px;background-color: #8d8d8d">
+    </div>
+    <div data-options="region:'west'" style="width: 20%;height: 100%;">
+        <ul id="main_left_menu" class="easyui-tree" data-options="url:'findResByUser',method:'get'">
+
+        </ul>
+    </div>
+    <div id="main_work" class="easyui-tabs" data-options="region:'center'"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.idea_1225.dao.RoleDao">
+    <select id="findAllRole" resultType="com.ssm.idea_1225.entity.Role">
+        SELECT id,name
+        FROM role
+    </select>
+
+    <insert id="saveRole" parameterType="com.ssm.idea_1225.entity.Role">
+        INSERT INTO role(id,name)
+        VALUES (#{id},#{name})
+    </insert>
+
+    <update id="editRole" parameterType="com.ssm.idea_1225.entity.Role">
+        UPDATE role
+        SET name=#{name}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteRole" parameterType="list">
+        DELETE FROM role
+        WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

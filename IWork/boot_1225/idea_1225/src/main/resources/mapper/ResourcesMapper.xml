@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.idea_1225.dao.ResourcesDao">
+    <resultMap id="resourceMap" type="com.ssm.idea_1225.entity.Resources">
+        <id property="id" column="id"></id>
+        <result property="text" column="text"></result>
+        <result property="url" column="u"></result>
+        <collection property="children" ofType="com.ssm.idea_1225.entity.Resources">
+            <id property="id" column="i"></id>
+            <result property="text" column="t"></result>
+            <result property="url" column="url"></result>
+        </collection>
+    </resultMap>
+
+    <select id="findAllRes" parameterType="com.ssm.idea_1225.entity.Resources" resultMap="resourceMap">
+    SELECT r.id,r.text,r.url u,r.parentid,rs.i,rs.t,rs.url,rs.p
+    FROM resources r
+    INNER JOIN (SELECT id i,text t ,url,parentid p FROM resources) rs
+    ON id = rs.p
+    </select>
+    <select id="findResByUser" parameterType="com.ssm.idea_1225.entity.User" resultMap="resourceMap">
+SELECT
+  rs.id,
+  rs.url u,
+  rs.text,
+  res.i,
+  res.t,
+  res.url
+FROM user u
+  LEFT JOIN user_role ur
+    ON u.id = ur.uid
+  LEFT JOIN role r
+    ON r.id = ur.rid
+  LEFT JOIN role_res rr
+    ON r.id = rr.rid
+  LEFT JOIN resources rs
+    ON rr.rsid = rs.id
+  INNER JOIN
+  (SELECT
+     id       i,
+     text     t,
+     url,
+     parentid p
+   FROM resources) res ON rs.id = res.p
+WHERE u.id = #{id}
+    </select>
+
+    <select id="findResText" resultType="com.ssm.idea_1225.entity.Resources">
+        SELECT id,text
+        FROM resources
+    </select>
+    <delete id="deleteRes" parameterType="list">
+        DELETE FROM resources
+        WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <insert id="saveRes" parameterType="com.ssm.idea_1225.entity.Resources">
+        INSERT INTO resources
+        VALUES (#{id},#{text},#{url},#{parentid})
+    </insert>
+</mapper>

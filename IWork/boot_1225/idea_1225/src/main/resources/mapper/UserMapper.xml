@@ -4,25 +4,45 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.idea_1225.dao.UserDao">
     <select id="findAllUser" resultType="com.ssm.idea_1225.entity.User">
-        select * from user
+        SELECT u.*,r.name AS roleName
+        FROM user u
+        LEFT JOIN user_role ur ON u.id = ur.uid
+        LEFT JOIN role r ON r.id = ur.rid
+    </select>
+
+    <select id="findRoleName" parameterType="com.ssm.idea_1225.entity.Role">
+        SELECT * FROM role
     </select>
 
     <delete id="deleteUserById" parameterType="int">
-        DELETE FROM user WHERE id = #{id}
+        DELETE FROM user
+        WHERE id = #{id}
     </delete>
 
     <delete id="deleteUser2" parameterType="list">
-        DELETE FROM user WHERE id IN
+        DELETE FROM user
+        WHERE id IN
         <foreach collection="list" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
 
     <insert id="saveUser" parameterType="com.ssm.idea_1225.entity.User">
-        INSERT INTO user(account,pwd) values(#{account},#{pwd})
+        INSERT INTO user(id,account,pwd)
+        values(#{id},#{account},#{pwd})
     </insert>
 
+    <insert id="saveUserRole" parameterType="com.ssm.idea_1225.entity.Role">
+        INSERT INTO user_role
+        VALUES (#{id},#{rid})
+    </insert>
     <update id="editUser" parameterType="com.ssm.idea_1225.entity.User">
-        UPDATE user SET account=#{account},pwd=#{pwd} WHERE id=#{id}
+        UPDATE user
+        SET account=#{account},pwd=#{pwd}
+        WHERE id=#{id}
     </update>
+    
+    <select id="login" parameterType="com.ssm.idea_1225.entity.User" resultType="com.ssm.idea_1225.entity.User">
+      SELECT * FROM user WHERE account=#{account} AND pwd=#{pwd}
+    </select>
 </mapper>

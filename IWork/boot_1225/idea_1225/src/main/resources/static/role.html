@@ -1,0 +1,94 @@
+<div id="role_list"></div>
+<div id="window_role_add" class="easyui-window" data-options="title:'添加角色',modal:true,closed:true"
+     style="display: flex;justify-content: center;flex-flow: column; width: 300px; height: 400px"
+>
+    <form id="form_role_add" action="saveRole">
+        <input type="hidden" name="id"/>
+        <div style="margin-bottom: 20px">
+            角色名称:<input type="text" name="name"/>
+        </div>
+    </form>
+    <div>
+        <button onclick="saveRole()">添加</button>
+    </div>
+</div>
+    <script>
+
+        function roleInit() {
+            $("#role_list").datagrid({
+                title: "角色",
+                url: "findAllRole",
+                method: "get",
+                columns: [[
+                    {field: "id", title: "id", checkbox: true},
+                    {field: "name", title: "角色名称", width: 100}
+                ]],
+                toolbar: [
+                    {
+                        text: "添加", iconCls: "icon-add", handler: function () {
+                            toAddRole();
+                        }
+                    },
+                    {
+                        text: "修改", iconCls: "icon-edit", handler: function () {
+                            toEditRole();
+                        }
+                    },
+                    {
+                        text: "删除", iconCls: "icon-remove", handler: function () {
+                            deleteRole();
+                        }
+                    }
+                ]
+            });
+        }
+
+        function deleteRole() {
+            var data = $("#role_list").datagrid("getSelections");
+            var s1 = [];
+            for (var i = 0; i < data.length;i++){
+                s1[i] = data[i].id;
+            }
+            var ids = JSON.stringify(s1);
+            $.ajax({
+                url:"deleteRole",
+                method:"post",
+                data:ids,
+                contentType:"application/json",
+                success:function(d) {
+                    $("#role_list").datagrid("reload");
+                }
+            })
+        }
+        function toAddRole() {
+            $("#form_role_add").form("clear");
+            $("#form_role_add").form("load", {
+                id: 0
+            });
+            $("#window_role_add").window("open");
+        }
+
+        function saveRole() {
+            $("#form_role_add").form("submit", {
+                success: function (d) {
+                    $("#role_list").datagrid("reload");
+                    $("#window_role_add").window("close");
+                }
+            })
+        }
+
+        function toEditRole() {
+            var role = $("#role_list").datagrid("getSelected");
+            if (role) {
+                $("#form_role_add").form("load",{
+                    id:role.id,
+                    name:role.name
+                });
+                $("#window_role_add").window("open");
+            } else {
+                $.messager.alert("系统提示","请选择需要修改的角色");
+            }
+        }
+        roleInit();
+    </script>
+
